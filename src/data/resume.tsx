@@ -162,7 +162,7 @@ summary:
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/nexflow.gif",
+      image: "/nexflow.png",
       video: "",
     },
     {
@@ -185,7 +185,7 @@ summary:
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/codealarm.gif",
+      image: "/codealarm.png",
       video: "",
     },
     {
@@ -234,7 +234,7 @@ summary:
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/webcraft.gif",
+      image: "/webcraft.png",
       video: "",
     },
   ],
