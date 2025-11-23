@@ -119,7 +119,7 @@ summary:
       school: "Pune Institute of Computer Technology (PICT)",
       href: "https://pict.edu",
       degree: "B.E. in Information Technology",
-      logoUrl: "/pict.png",
+      logoUrl: "/PICT.png",
       start: "2023",
       end: "2027",
     },
