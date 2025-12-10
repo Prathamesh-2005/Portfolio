@@ -86,7 +86,7 @@ summary:
       },
       Resume: {
         name: "Resume",
-        url: "https://drive.google.com/file/d/1vM72fVci_5t3gZaDgkdyRWmto9s95GOn/view?usp=sharing",
+        url: "https://drive.google.com/file/d/1-TWjCgZt4n1N1eVBWFasPuSE0tZ19fCy/view?usp=sharing",
         icon: Icons.resume,
         navbar: true,
       },

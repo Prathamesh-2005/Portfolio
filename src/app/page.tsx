@@ -10,6 +10,7 @@ import { GitHubContributionGraph } from "@/components/github-contribution-graph"
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
+// visitor counter removed
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -245,6 +246,7 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
+      {/* visitors section removed */}
     </main>
   );
 }
