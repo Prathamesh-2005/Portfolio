@@ -75,6 +75,53 @@
     }
   }
 
+  /* View Transitions API for smooth theme switching */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.5s;
+  }
+
+  /* Blur effect during theme transition */
+  ::view-transition-group(root) {
+    animation-duration: 0.5s;
+  }
+
+  ::view-transition-old(root) {
+    animation: blur-out 0.5s ease-in-out;
+  }
+
+  ::view-transition-new(root) {
+    animation: blur-in 0.5s ease-in-out;
+  }
+
+  @keyframes blur-out {
+    from {
+      filter: blur(0px);
+      opacity: 1;
+    }
+    to {
+      filter: blur(8px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes blur-in {
+    from {
+      filter: blur(8px);
+      opacity: 0;
+    }
+    to {
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+
   h3 code {
     @apply !text-lg md:!text-xl;
   }
