@@ -33,6 +33,9 @@ export function useThemeTransition() {
       transition.ready.then(() => {
         let clipPath: { start: string; end: string }
         
+        // Check if mobile device
+        const isMobile = window.innerWidth <= 768
+        
         if (typeof position === 'object' && 'x' in position) {
           // Use actual click coordinates
           const x = position.x
@@ -50,13 +53,14 @@ export function useThemeTransition() {
           clipPath = getClipPath(position as ThemeToggleStart)
         }
         
+        // Adjust animation duration and easing for mobile
         document.documentElement.animate(
           {
             clipPath: [clipPath.start, clipPath.end],
           },
           {
-            duration: 500,
-            easing: 'ease-in-out',
+            duration: isMobile ? 300 : 500,
+            easing: isMobile ? 'ease-out' : 'ease-in-out',
             pseudoElement: '::view-transition-new(root)',
           }
         )

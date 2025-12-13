@@ -122,6 +122,48 @@
     }
   }
 
+  /* Mobile optimization - reduce blur and animation time */
+  @media (max-width: 768px) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+    }
+
+    ::view-transition-group(root) {
+      animation-duration: 0.3s;
+    }
+
+    ::view-transition-old(root) {
+      animation: blur-out-mobile 0.3s ease-out;
+    }
+
+    ::view-transition-new(root) {
+      animation: blur-in-mobile 0.3s ease-out;
+    }
+
+    @keyframes blur-out-mobile {
+      from {
+        filter: blur(0px);
+        opacity: 1;
+      }
+      to {
+        filter: blur(2px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes blur-in-mobile {
+      from {
+        filter: blur(2px);
+        opacity: 0;
+      }
+      to {
+        filter: blur(0px);
+        opacity: 1;
+      }
+    }
+  }
+
   h3 code {
     @apply !text-lg md:!text-xl;
   }

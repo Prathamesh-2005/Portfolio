@@ -1,6 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import TypingAnimation from "@/components/magicui/typing-animation";
+import { TypingRotator } from "@/components/typing-rotator";
 import { SkillCard3D } from "@/components/magicui/skill-card-3d";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
@@ -10,7 +11,14 @@ import { GitHubContributionGraph } from "@/components/github-contribution-graph"
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
-// visitor counter removed
+import dynamic from "next/dynamic";
+
+const SkillsCube3D = dynamic(() => import("@/components/skills-cube-3d").then(mod => ({ default: mod.SkillsCube3D })), {
+  ssr: false,
+  loading: () => <div className="w-full h-[500px] rounded-xl border border-border bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
+    <p className="text-muted-foreground">Loading 3D Scene...</p>
+  </div>
+});
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -21,17 +29,29 @@ export default function Page() {
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
-              <TypingAnimation
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
-                duration={100}
-                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-left"
-                delay={0.2}
-              />
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY * 2}
-                text={DATA.description}
-              />
+              <BlurFade delay={BLUR_FADE_DELAY}>
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-left">
+                  Hi, I'm {DATA.name.split(" ")[0]} 👋
+                </h1>
+              </BlurFade>
+              <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                <div className="max-w-[600px] md:text-xl text-muted-foreground">
+                  <span className="font-medium">I build </span>
+                  <TypingRotator
+                    texts={[
+                      "Spring Boot microservices",
+                      "React applications",
+                      "scalable backend systems",
+                      "full-stack web apps",
+                      "RESTful APIs",
+                    ]}
+                    className="font-bold text-primary"
+                    typingSpeed={80}
+                    deletingSpeed={40}
+                    pauseDuration={2000}
+                  />
+                </div>
+              </BlurFade>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
@@ -113,11 +133,14 @@ export default function Page() {
           </BlurFade>
           <div className="flex flex-wrap gap-1">
             {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
+              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 9.5 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
               </BlurFade>
             ))}
           </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
+            <SkillsCube3D />
+          </BlurFade>
         </div>
       </section>
       <section id="core-subjects">

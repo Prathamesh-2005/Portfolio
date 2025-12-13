@@ -202,9 +202,9 @@ export const GitHubContributionGraph = ({
             </Button>
           </div>
         ) : (
-          <div className="relative overflow-hidden">
+          <div className="relative">
             <div className="relative bg-background/50 backdrop-blur-sm rounded-lg border border-dashed dark:border-white/10 border-black/20 p-6">
-              <div className="w-full overflow-hidden">
+              <div className="w-full overflow-x-auto">
                 <ActivityCalendar
                   data={contributions}
                   blockSize={10}
@@ -223,7 +223,6 @@ export const GitHubContributionGraph = ({
                   }}
                   style={{
                     color: 'rgb(139, 148, 158)',
-                    maxWidth: '100%',
                   }}
                 />
               </div>
