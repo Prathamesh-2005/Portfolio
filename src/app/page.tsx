@@ -27,40 +27,39 @@ export default function Page() {
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1 min-w-0">
               <BlurFade delay={BLUR_FADE_DELAY}>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-left">
-  Hi, I&apos;m {DATA.name.split(" ")[0]} 👋
-</h1>
-
-              </BlurFade>
-              <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                <div className="max-w-[600px] md:text-xl text-muted-foreground">
-                  <span className="font-medium">I build </span>
-                  <TypingRotator
-                    texts={[
-                      "Spring Boot microservices",
-                      "React applications",
-                      "scalable backend systems",
-                      "full-stack web apps",
-                      "RESTful APIs",
-                    ]}
-                    className="font-bold text-primary"
-                    typingSpeed={80}
-                    deletingSpeed={40}
-                    pauseDuration={2000}
-                  />
-                </div>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight lowercase">
+                  hey, {DATA.name.split(" ")[0].toLowerCase()} here 👋
+                </h1>
               </BlurFade>
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
+             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 2}>
+            <div className="max-w-[600px] md:text-xl text-muted-foreground">
+              <span className="font-medium">I build </span>
+              <TypingRotator
+                texts={[
+                  "Spring Boot microservices",
+                  "React applications",
+                  "scalable backend systems",
+                  "full-stack web apps",
+                  "RESTful APIs",
+                ]}
+                className="font-bold text-primary"
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseDuration={2000}
+              />
+            </div>
+          </BlurFade>
         </div>
       </section>
       <section id="about">
@@ -198,7 +197,7 @@ export default function Page() {
             ))}
           </div>
         </div>
-      </section> 
+      </section>
       <section id="contact">
         <div className="w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -211,7 +210,7 @@ export default function Page() {
                   Whether you have a project in mind, want to discuss tech, or just want to say hi — I&apos;d love to hear from you.
                 </p>
               </div>
-              
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <Link
                   href={DATA.contact.social.email.url}

@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { CursorCat } from "@/components/cursor-cat";
+import { BackgroundMeteors } from "@/components/background-meteors";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
+            <BackgroundMeteors />
             {children}
             <Navbar />
           </TooltipProvider>
