@@ -161,7 +161,7 @@ export const DATA = {
         },
       ],
       image: "/nexflow.png",
-      video: "",
+      video: "https://fxtnnimrlhknzamijawv.supabase.co/storage/v1/object/public/portfolio_videos/NexFlow.gif",
     },
     {
       title: "CodeAlarm – Contest Tracker",
@@ -184,7 +184,7 @@ export const DATA = {
         },
       ],
       image: "/codealarm.png",
-      video: "",
+      video: "https://fxtnnimrlhknzamijawv.supabase.co/storage/v1/object/public/portfolio_videos/codealarm.gif",
     },
     {
       title: "Wellify – Healthcare Management Platform",
@@ -233,7 +233,7 @@ export const DATA = {
         },
       ],
       image: "/webcraft.png",
-      video: "",
+      video: "https://fxtnnimrlhknzamijawv.supabase.co/storage/v1/object/public/portfolio_videos/webcraft.gif",
     },
   ],
 
