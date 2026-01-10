@@ -6,9 +6,7 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { CursorCat } from "@/components/cursor-cat";
 import { BackgroundMeteors } from "@/components/background-meteors";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -71,8 +69,6 @@ export default function RootLayout({
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
-        <CursorCat />
-        <SmoothCursor />
       </body>
     </html>
   );

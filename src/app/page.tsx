@@ -12,6 +12,7 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const SkillsCube3D = dynamic(() => import("@/components/skills-cube-3d").then(mod => ({ default: mod.SkillsCube3D })), {
   ssr: false,
@@ -20,11 +21,24 @@ const SkillsCube3D = dynamic(() => import("@/components/skills-cube-3d").then(mo
   </div>
 });
 
+const Oneko = dynamic(() => import("../components/oneko").then(mod => ({ default: mod.Oneko })), {
+  ssr: false,
+});
+
 const BLUR_FADE_DELAY = 0.04;
+
+// Tech badge component with icon
+const TechBadge = ({ name, icon }: { name: string; icon: string }) => (
+  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-muted/80 text-sm font-medium border border-border/50">
+    <Image src={icon} alt={name} width={16} height={16} className="size-4" />
+    {name}
+  </span>
+);
 
 export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
+      <Oneko />
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="flex items-center justify-between gap-4">
@@ -35,50 +49,45 @@ export default function Page() {
                 </h1>
               </BlurFade>
             </div>
-             <BlurFade delay={BLUR_FADE_DELAY}>
+            <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
-          <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="max-w-[600px] md:text-xl text-muted-foreground">
-              <span className="font-medium">I build </span>
-              <TypingRotator
-                texts={[
-                  "Spring Boot microservices",
-                  "React applications",
-                  "scalable backend systems",
-                  "full-stack web apps",
-                  "RESTful APIs",
-                ]}
-                className="font-bold text-primary"
-                typingSpeed={80}
-                deletingSpeed={40}
-                pauseDuration={2000}
-              />
-            </div>
-          </BlurFade>
         </div>
       </section>
-      <section id="about">
-        <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className="text-xl font-bold">About</h2>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            {DATA.summary}
-          </Markdown>
+
+      {/* About section with hover effect */}
+      <section id="about" className="section-hover pl-4">
+        <BlurFade delay={BLUR_FADE_DELAY * 2}>
+          <h2 className="text-xl font-bold mb-2">About</h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            I build full-stack applications using{" "}
+            <TechBadge name="Spring Boot" icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" />{" "}
+            ,{" "}
+            <TechBadge name="React" icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />{" "}
+            ,{" "}
+            <TechBadge name="Supabase" icon="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" />{" "}
+            ,{" "}
+            <TechBadge name="AWS" icon="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />{" "}
+            and{" "}
+            <TechBadge name="PostgreSQL" icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />{" "}
+            . With a focus on <span className="font-semibold text-foreground">microservices</span> and{" "}
+            <span className="font-semibold text-foreground">scalable systems</span>. Solved{" "}
+            <span className="font-semibold text-foreground">650+ DSA</span> problems, driven by strong CS fundamentals.
+          </p>
         </BlurFade>
       </section>
+
       <section id="github-contributions">
         <GitHubContributionGraph
           username="Prathamesh-2005"
           delay={BLUR_FADE_DELAY * 4.5}
         />
       </section>
-      <section id="work">
+      <section id="work" className="section-hover pl-4">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-xl font-bold">Work Experience</h2>
@@ -103,7 +112,7 @@ export default function Page() {
           ))}
         </div>
       </section>
-      <section id="education">
+      <section id="education" className="section-hover pl-4">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
             <h2 className="text-xl font-bold">Education</h2>
@@ -126,7 +135,7 @@ export default function Page() {
           ))}
         </div>
       </section>
-      <section id="skills">
+      <section id="skills" className="section-hover pl-4">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
             <h2 className="text-xl font-bold">Skills</h2>
@@ -143,7 +152,7 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <section id="core-subjects">
+      <section id="core-subjects" className="section-hover pl-4">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
             <h2 className="text-xl font-bold">Core Subjects</h2>
@@ -269,7 +278,6 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      {/* visitors section removed */}
     </main>
   );
 }
