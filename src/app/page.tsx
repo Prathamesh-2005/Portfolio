@@ -40,7 +40,7 @@ export default function Page() {
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <Oneko />
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
+        <div className="mx-auto w-full max-w-3xl space-y-8">
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1 min-w-0">
               <BlurFade delay={BLUR_FADE_DELAY}>

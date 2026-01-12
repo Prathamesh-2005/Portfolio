@@ -5,13 +5,11 @@ import { Cloud, fetchSimpleIcons, renderSimpleIcon, SimpleIcon } from "react-ico
 
 const slugs = [
   "java",
-  "c",
-  "cpp",
   "spring",
-  "springboot",
   "react",
   "nextdotjs",
   "javascript",
+  "typescript",
   "python",
   "mysql",
   "postgresql",
@@ -20,13 +18,22 @@ const slugs = [
   "redis",
   "docker",
   "git",
-  "Streamlit",
+  "github",
   "cplusplus",
   "nodedotjs",
-  "typescript",
   "html5",
   "css3",
   "tailwindcss",
+  "amazonaws",
+  "linux",
+  "postman",
+  "figma",
+  "vercel",
+  "npm",
+  "gradle",
+  "maven",
+  "hibernate",
+  "json",
 ];
 
 export function SkillsCube3D() {
@@ -64,7 +71,7 @@ export function SkillsCube3D() {
               
               initial: [0.1, -0.1], 
               
-              minSpeed: 0.02, 
+              minSpeed: 0.03, 
               maxSpeed: 0.04,
               
               outlineColour: "#0000",
