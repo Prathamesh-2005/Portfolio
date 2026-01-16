@@ -39,6 +39,7 @@ export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <Oneko />
+
       <section id="hero">
         <div className="mx-auto w-full max-w-3xl space-y-8">
           <div className="flex items-center justify-between gap-4">
@@ -50,10 +51,43 @@ export default function Page() {
               </BlurFade>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
+              <div className="relative">
+                <Link
+                  href="mailto:prathameshjadhav0198@gmail.com"
+                  className="absolute -top-12 -left-20 flex flex-col items-end group z-10 hover:animate-shake"
+                >
+                  <span className="font-handwriting text-2xl -rotate-12 text-muted-foreground group-hover:text-primary transition-colors whitespace-nowrap mr-2">
+                    HIRE ME
+                  </span>
+                  <svg
+                    width="60"
+                    height="40"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-muted-foreground group-hover:text-primary transition-colors rotate-12 -mt-2"
+                  >
+                    <path
+                      d="M10,10 Q50,10 80,50"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                      markerEnd="url(#arrowhead)"
+                    />
+                    <path
+                      d="M80,50 L70,45 M80,50 L75,35"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </Link>
+
+                <Avatar className="size-28 border">
+                  <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                  <AvatarFallback>{DATA.initials}</AvatarFallback>
+                </Avatar>
+              </div>
             </BlurFade>
           </div>
         </div>

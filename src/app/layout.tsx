@@ -4,13 +4,18 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Caveat } from "next/font/google";
 import "./globals.css";
 import { BackgroundMeteors } from "@/components/background-meteors";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const fontHandwriting = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwriting",
 });
 
 export const metadata: Metadata = {
@@ -59,7 +64,8 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased max-w-3xl mx-auto py-12 sm:py-24 px-6",
-          fontSans.variable
+          fontSans.variable,
+          fontHandwriting.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">

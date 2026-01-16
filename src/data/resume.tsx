@@ -84,7 +84,7 @@ export const DATA = {
       },
       Resume: {
         name: "Resume",
-        url: "https://drive.google.com/file/d/1-TWjCgZt4n1N1eVBWFasPuSE0tZ19fCy/view?usp=sharing",
+        url: "https://drive.google.com/file/d/1C-88C0eD6xYkK0231gFiKk0go1Xrxf-L/view?usp=sharing",
         icon: Icons.resume,
         navbar: true,
       },
@@ -116,7 +116,7 @@ export const DATA = {
     {
       school: "Pune Institute of Computer Technology (PICT)",
       href: "https://pict.edu",
-      degree: "B.E. in Information Technology",
+      degree: "B.E. in Information Technology- CGPA : 9.42",
       logoUrl: "/PICT.png",
       start: "2023",
       end: "2027",
@@ -124,7 +124,7 @@ export const DATA = {
     {
       school: "K.K. Wagh College, Nashik",
       href: "#",
-      degree: "HSC (12th) – 83.67%",
+      degree: "HSC (12th) - 83.67%",
       logoUrl: "/mvp.png",
       start: "2021",
       end: "2023",

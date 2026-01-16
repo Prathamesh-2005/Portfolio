@@ -61,7 +61,7 @@ export function SkillsCube3D() {
 
   return (
     <div className="flex items-center justify-center py-10">
-      <div className="relative flex size-[350px] items-center justify-center overflow-hidden rounded-lg bg-background">
+      <div className="relative flex size-[350px] items-center justify-center overflow-hidden rounded-lg">
         {renderedIcons ? (
           <Cloud
             options={{
@@ -85,7 +85,7 @@ export function SkillsCube3D() {
           </Cloud>
         ) : (
           <div className="flex items-center justify-center">
-             <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-white"></div>
+             <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
           </div>
         )}
       </div>
