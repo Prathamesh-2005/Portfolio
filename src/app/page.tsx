@@ -110,7 +110,7 @@ export default function Page() {
             <TechBadge name="PostgreSQL" icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />{" "}
             . With a focus on <span className="font-semibold text-foreground">microservices</span> and{" "}
             <span className="font-semibold text-foreground">scalable systems</span>. Solved{" "}
-            <span className="font-semibold text-foreground">650+ DSA</span> problems, driven by strong CS fundamentals.
+            <span className="font-semibold text-foreground">750+ DSA</span> problems, driven by strong CS fundamentals.
           </p>
         </BlurFade>
       </section>
