@@ -8,7 +8,7 @@ export const DATA = {
   location: "Pune, India",
   locationLink: "https://www.google.com/maps/place/Pune",
   description:
-    "Full-Stack Developer | Spring Boot • React • Microservices | 650+ DSA Problems & Strong CS Fundamentals.",
+    "Full-Stack Developer | Spring Boot • React • Microservices | 750+ DSA Problems & Strong CS Fundamentals.",
 
   summary:
     "I am Prathamesh Jadhav, an Information Technology undergraduate at PICT, Pune, and a passionate full-stack developer. I specialize in Spring Boot, React, RAG, and Machine Learning. I enjoy building high-performance, scalable systems and solving real-world engineering problems. I previously worked as a Software Developer Intern at 8th Wonder Technologies, where I built production-grade React interfaces, reusable UI components, and CMS-driven dashboards. I actively practice DSA, have solved 650+ problems, and love exploring system design, microservices, and AI-driven applications.",
