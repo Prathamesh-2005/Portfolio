@@ -3,11 +3,14 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import TypingAnimation from "@/components/magicui/typing-animation";
 import { TypingRotator } from "@/components/typing-rotator";
 import { SkillCard3D } from "@/components/magicui/skill-card-3d";
+import { SkillsSection } from "@/components/skills-section";
+import { CoreSubjectsSection } from "@/components/core-subjects-section";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { GitHubContributionGraph } from "@/components/github-contribution-graph";
+import { LocationWithTime } from "@/components/location-with-time";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -115,7 +118,7 @@ export default function Page() {
         </BlurFade>
       </section>
 
-      <section id="github-contributions">
+      <section id="github-contributions" className="mx-auto w-full max-w-[850px]">
         <GitHubContributionGraph
           username="Prathamesh-2005"
           delay={BLUR_FADE_DELAY * 4.5}
@@ -170,35 +173,17 @@ export default function Page() {
         </div>
       </section>
       <section id="skills" className="section-hover pl-4">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-1">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 9.5 + id * 0.05}>
-                <Badge key={skill}>{skill}</Badge>
-              </BlurFade>
-            ))}
-          </div>
-          <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
-            <SkillsCube3D />
-          </BlurFade>
-        </div>
+        <BlurFade delay={BLUR_FADE_DELAY * 9}>
+          <SkillsSection />
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 9.5}>
+          <SkillsCube3D />
+        </BlurFade>
       </section>
       <section id="core-subjects" className="section-hover pl-4">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
-            <h2 className="text-xl font-bold">Core Subjects</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-1">
-            {DATA.coreSubjects.map((subject, id) => (
-              <BlurFade key={subject} delay={BLUR_FADE_DELAY * 11 + id * 0.05}>
-                <Badge key={subject}>{subject}</Badge>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
+        <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
+          <CoreSubjectsSection />
+        </BlurFade>
       </section>
       <section id="projects">
         <div className="space-y-12 w-full py-12">
@@ -242,7 +227,7 @@ export default function Page() {
         </div>
       </section>
       <section id="contact">
-        <div className="w-full py-12">
+        <div className="w-full py-8">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="max-w-2xl mx-auto space-y-8">
               <div className="space-y-4 text-center">
@@ -312,6 +297,13 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
+
+      {/* Footer with Location and Time */}
+      <footer className="w-full py-3 border-t">
+        <BlurFade delay={BLUR_FADE_DELAY * 17}>
+          <LocationWithTime />
+        </BlurFade>
+      </footer>
     </main>
   );
 }

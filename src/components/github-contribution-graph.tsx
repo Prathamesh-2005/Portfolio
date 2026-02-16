@@ -2,12 +2,12 @@
 
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ActivityCalendar } from 'react-activity-calendar';
-
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BlurFade from "@/components/magicui/blur-fade";
+import { Loader2, BadgeCheck } from 'lucide-react';
 
 type ContributionItem = {
   date: string;
@@ -31,7 +31,6 @@ const githubConfig = {
   apiUrl: 'https://github-contributions-api.deno.dev',
   title: 'GitHub Activity',
   subtitle: 'coding journey over the past year',
-  blockSize: 11,
   blockMargin: 3,
   fontSize: 12,
   maxLevel: 4,
@@ -83,10 +82,38 @@ export const GitHubContributionGraph = ({
   delay = 0,
 }: GitHubContributionGraphProps) => {
   const [contributions, setContributions] = useState<ContributionItem[]>([]);
-  const [totalContributions, setTotalContributions] = useState<number>(0);
+  const [totalContributions, setTotalContributions] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [blockSize, setBlockSize] = useState(11);
+  const [currentTime, setCurrentTime] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+
+  // Dynamically compute blockSize so the graph always fits the container width
+  useEffect(() => {
+    function computeBlockSize() {
+      if (!containerRef.current) return;
+      const containerWidth = containerRef.current.clientWidth;
+      // 53 weeks + label column (~30px) + margins
+      const weeks = 53;
+      const labelOffset = 30;
+      const margin = githubConfig.blockMargin;
+      // blockSize = (availableWidth - labelOffset) / (weeks * (blockSize + margin))
+      // Solve: size = (containerWidth - labelOffset) / (weeks * (1 + margin/size))
+      // Approximate: size = (containerWidth - labelOffset - weeks * margin) / weeks
+      const computed = Math.floor(
+        (containerWidth - labelOffset - weeks * margin) / weeks
+      );
+      // Clamp between 8 and 14 for readability
+      setBlockSize(Math.max(8, Math.min(14, computed)));
+    }
+
+    computeBlockSize();
+    const observer = new ResizeObserver(computeBlockSize);
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -99,7 +126,6 @@ export const GitHubContributionGraph = ({
 
         if (data?.contributions && Array.isArray(data.contributions)) {
           const flattenedContributions = data.contributions.flat();
-
           const contributionLevelMap = {
             NONE: 0,
             FIRST_QUARTILE: 1,
@@ -152,83 +178,73 @@ export const GitHubContributionGraph = ({
 
   return (
     <BlurFade delay={delay}>
-      <div className="space-y-6 w-full">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              {githubConfig.title}
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              <b>{username}</b>&apos;s {githubConfig.subtitle}
-            </p>
+      <div className="rounded-xl border bg-card p-6 shadow-sm w-full">
+        {/* Header */}
+        <div className="mb-4 flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-semibold">{githubConfig.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {username}&apos;s {githubConfig.subtitle}
+              </p>
+            </div>
+
             {!isLoading && !hasError && totalContributions > 0 && (
-              <p className="text-sm text-primary font-medium mt-1">
-                Total:{' '}
-                <span className="font-black">
+              <div className="text-right text-sm text-muted-foreground shrink-0">
+                <span>Total: </span>
+                <span className="font-semibold text-foreground">
                   {totalContributions.toLocaleString()}
                 </span>{' '}
-                contributions
-              </p>
+                <span>contributions</span>
+              </div>
             )}
           </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="text-center">
-              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-sm text-muted-foreground">
-                {githubConfig.loadingState.description}
-              </p>
+        {/* Graph area — ref used for width measurement, no overflow */}
+        <div ref={containerRef} className="w-full">
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-10 text-muted-foreground">
+              <Loader2 className="mb-3 h-6 w-6 animate-spin" />
+              <p className="text-sm">{githubConfig.loadingState.description}</p>
             </div>
-          </div>
-        ) : hasError || contributions.length === 0 ? (
-          <div className="p-8 text-center text-muted-foreground border-2 border-dashed border-border rounded-xl">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
-              <Icons.github className="w-8 h-8" />
-            </div>
-            <p className="font-medium mb-2">{githubConfig.errorState.title}</p>
-            <p className="text-sm mb-4">
-              {githubConfig.errorState.description}
-            </p>
-            <Button variant="outline" asChild>
-              <Link
-                href={`https://github.com/${username}`}
-                className="inline-flex items-center gap-2"
-              >
-                <Icons.github className="w-4 h-4" />
-                {githubConfig.errorState.buttonText}
-              </Link>
-            </Button>
-          </div>
-        ) : (
-          <div className="relative">
-            <div className="relative bg-background/50 backdrop-blur-sm rounded-lg border border-dashed dark:border-white/10 border-black/20 p-6">
-              <div className="w-full overflow-x-auto">
-                <ActivityCalendar
-                  data={contributions}
-                  blockSize={10}
-                  blockMargin={3}
-                  fontSize={githubConfig.fontSize}
-                  colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                  theme={githubConfig.theme}
-                  labels={{
-                    legend: {
-                      less: 'Less',
-                      more: 'More'
-                    },
-                    months: githubConfig.months,
-                    totalCount: githubConfig.totalCountLabel,
-                    weekdays: githubConfig.weekdays,
-                  }}
-                  style={{
-                    color: 'rgb(139, 148, 158)',
-                  }}
-                />
+          ) : hasError || contributions.length === 0 ? (
+            <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+              <Icons.github className="h-8 w-8 text-muted-foreground" />
+              <div>
+                <p className="font-medium">{githubConfig.errorState.title}</p>
+                <p className="text-sm text-muted-foreground">
+                  {githubConfig.errorState.description}
+                </p>
               </div>
+              <Button variant="outline" size="sm" asChild>
+                <Link
+                  href={`https://github.com/${username}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {githubConfig.errorState.buttonText}
+                </Link>
+              </Button>
             </div>
-          </div>
-        )}
+          ) : (
+            <ActivityCalendar
+              data={contributions}
+              theme={githubConfig.theme}
+              colorScheme={theme === 'dark' ? 'dark' : 'light'}
+              blockSize={blockSize}
+              blockMargin={githubConfig.blockMargin}
+              fontSize={githubConfig.fontSize}
+              maxLevel={githubConfig.maxLevel}
+              labels={{
+                months: githubConfig.months,
+                weekdays: githubConfig.weekdays,
+                totalCount: githubConfig.totalCountLabel,
+              }}
+              style={{ width: '100%' }}
+            />
+          )}
+        </div>
       </div>
     </BlurFade>
   );

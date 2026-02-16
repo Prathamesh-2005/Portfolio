@@ -2,42 +2,43 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { Cloud, fetchSimpleIcons, renderSimpleIcon, SimpleIcon } from "react-icon-cloud";
+import { useTheme } from "next-themes";
 
 const slugs = [
-  "java",
-  "spring",
-  "react",
-  "nextdotjs",
-  "javascript",
-  "typescript",
-  "python",
-  "mysql",
-  "postgresql",
-  "mongodb",
-  "supabase",
-  "redis",
-  "docker",
-  "git",
-  "github",
-  "cplusplus",
-  "nodedotjs",
-  "html5",
-  "css3",
-  "tailwindcss",
-  "amazonaws",
-  "linux",
-  "postman",
-  "figma",
-  "vercel",
-  "npm",
-  "gradle",
-  "maven",
-  "hibernate",
-  "json",
+    "java",
+    "spring",
+    "react",
+    "springboot",
+    "javascript",
+    "python",
+    "mysql",
+    "postgresql",
+    "supabase",
+    "redis",
+    "docker",
+    "git",
+    "github",
+    "cplusplus",
+    "nodedotjs",
+    "html5",
+    "css3",
+    "tailwindcss",
+    "amazonwebservices",
+    "linux",
+    "postman",
+    "figma",
+    "vercel",
+    "npm",
+    "maven",
+    "hibernate",
+    "json",
+
 ];
+
 
 export function SkillsCube3D() {
   const [icons, setIcons] = useState<SimpleIcon[] | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     fetchSimpleIcons({ slugs }).then((data) => {
@@ -51,13 +52,15 @@ export function SkillsCube3D() {
     return icons.map((icon) =>
       renderSimpleIcon({
         icon,
-        size: 42, 
+        size: 42,
         aProps: {
           onClick: (e) => e.preventDefault(),
         },
+        fallbackHex: theme === "dark" ? "#ffffff" : "#000000",
+        minContrastRatio: 2,
       })
     );
-  }, [icons]);
+  }, [icons, theme]);
 
   return (
     <div className="flex items-center justify-center py-10">

@@ -459,3 +459,15 @@ code[data-line-numbers-max-digits="3"]>[data-line]::before {
   font-weight: 600;
   letter-spacing: 0.05em;
 }
+
+/* Shake animation for skill badges on hover */
+@keyframes shake-skill {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-2px) rotate(-1deg); }
+  50% { transform: translateX(2px) rotate(1deg); }
+  75% { transform: translateX(-2px) rotate(-1deg); }
+}
+
+.hover\:animate-shake-skill:hover {
+  animation: shake-skill 0.4s ease-in-out;
+}
