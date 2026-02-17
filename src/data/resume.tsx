@@ -141,6 +141,24 @@ export const DATA = {
 
   projects: [
     {
+      title: "CheckPoint – Dynamic Ride Share Management System",
+      href: "#",
+      dates: "2024 – Present",
+      active: true,
+      description:
+        "A modern, full-stack ride-sharing platform that connects drivers and passengers seamlessly. Features dynamic ride matching, live GPS tracking, route optimization, real-time chat between drivers and passengers, secure payment processing, and JWT-based authentication with OAuth2 support.",
+      technologies: ["Spring Boot","WebSocket", "React", "JWT", "OAuth2","Razorpay", "Leaflet Maps"],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/Prathamesh-2005/CheckPoint_webapp",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/checkpoint.png",
+      video: "",
+    },
+    {
       title: "NexFlow – Collaborative Project Management Platform",
       href: "#",
       dates: "2024",
@@ -211,29 +229,6 @@ export const DATA = {
       ],
       image: "/wellify.png",
       video: "",
-    },
-    {
-      title: "WebCraft – AI-Powered Website Builder",
-      href: "#",
-      dates: "2024 – Present",
-      active: true,
-      description:
-        "An AI-driven website builder that generates complete websites based on user prompts using Gemini API. Features include real-time preview, code editing, and one-click deployment to Netlify directly from the platform.",
-      technologies: ["React", "Spring Boot", "Gemini API", "Netlify"],
-      links: [
-        {
-          type: "Website",
-          href: "https://webcraft-iota.vercel.app/",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/Prathamesh-2005/Webcraft",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "/webcraft.png",
-      video: "https://xwornhdmzntowndxavrk.supabase.co/storage/v1/object/public/portfolio-videos/webcraft.gif",
     },
   ],
 

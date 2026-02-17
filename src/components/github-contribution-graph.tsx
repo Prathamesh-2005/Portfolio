@@ -7,7 +7,7 @@ import { ActivityCalendar } from 'react-activity-calendar';
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import BlurFade from "@/components/magicui/blur-fade";
-import { Loader2, BadgeCheck } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 type ContributionItem = {
   date: string;
@@ -30,7 +30,6 @@ const githubConfig = {
   username: 'Prathamesh-2005',
   apiUrl: 'https://github-contributions-api.deno.dev',
   title: 'GitHub Activity',
-  subtitle: 'coding journey over the past year',
   blockMargin: 3,
   fontSize: 12,
   maxLevel: 4,
@@ -86,32 +85,35 @@ export const GitHubContributionGraph = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [blockSize, setBlockSize] = useState(11);
-  const [currentTime, setCurrentTime] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Ref sits on the graph wrapper so ResizeObserver measures exactly
+  // the pixels the SVG will occupy — not the outer card.
+  const graphRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
 
-  // Dynamically compute blockSize so the graph always fits the container width
   useEffect(() => {
     function computeBlockSize() {
-      if (!containerRef.current) return;
-      const containerWidth = containerRef.current.clientWidth;
-      // 53 weeks + label column (~30px) + margins
+      if (!graphRef.current) return;
+
+      const availableWidth = graphRef.current.clientWidth;
       const weeks = 53;
-      const labelOffset = 30;
       const margin = githubConfig.blockMargin;
-      // blockSize = (availableWidth - labelOffset) / (weeks * (blockSize + margin))
-      // Solve: size = (containerWidth - labelOffset) / (weeks * (1 + margin/size))
-      // Approximate: size = (containerWidth - labelOffset - weeks * margin) / weeks
+
+      // ActivityCalendar adds a weekday-label column (~28px at fontSize 12)
+      const weekdayLabelWidth = 28;
+
+      // blockSize * weeks + margin * (weeks - 1) + weekdayLabelWidth = availableWidth
       const computed = Math.floor(
-        (containerWidth - labelOffset - weeks * margin) / weeks
+        (availableWidth - weekdayLabelWidth - margin * (weeks - 1)) / weeks
       );
-      // Clamp between 8 and 14 for readability
-      setBlockSize(Math.max(8, Math.min(14, computed)));
+
+      setBlockSize(Math.max(5, Math.min(14, computed)));
     }
 
     computeBlockSize();
+
     const observer = new ResizeObserver(computeBlockSize);
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (graphRef.current) observer.observe(graphRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -119,9 +121,7 @@ export const GitHubContributionGraph = ({
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `${githubConfig.apiUrl}/${username}.json`,
-        );
+        const response = await fetch(`${githubConfig.apiUrl}/${username}.json`);
         const data: { contributions?: unknown[] } = await response.json();
 
         if (data?.contributions && Array.isArray(data.contributions)) {
@@ -152,13 +152,9 @@ export const GitHubContributionGraph = ({
             }));
 
           if (validContributions.length > 0) {
-            const total = validContributions.reduce(
-              (sum, item) => sum + item.count,
-              0,
-            );
+            const total = validContributions.reduce((sum, item) => sum + item.count, 0);
             setTotalContributions(total);
-            const filteredContributions = filterLastYear(validContributions);
-            setContributions(filteredContributions);
+            setContributions(filterLastYear(validContributions));
           } else {
             setHasError(true);
           }
@@ -178,51 +174,53 @@ export const GitHubContributionGraph = ({
 
   return (
     <BlurFade delay={delay}>
-      <div className="rounded-xl border bg-card p-6 shadow-sm w-full">
-        {/* Header */}
-        <div className="mb-4 flex flex-col gap-2">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold">{githubConfig.title}</h3>
-              <p className="text-sm text-muted-foreground">
-                {username}&apos;s {githubConfig.subtitle}
-              </p>
-            </div>
+      <div className="rounded-xl border bg-card p-4 w-full overflow-hidden">
 
-            {!isLoading && !hasError && totalContributions > 0 && (
-              <div className="text-right text-sm text-muted-foreground shrink-0">
-                <span>Total: </span>
-                <span className="font-semibold text-foreground">
-                  {totalContributions.toLocaleString()}
-                </span>{' '}
-                <span>contributions</span>
-              </div>
-            )}
-          </div>
+        {/* Header — subtitle removed */}
+        <div className="flex items-start justify-between mb-3 flex-wrap gap-2">
+          <h3 className="font-bold text-base flex items-center gap-1.5">
+            <Icons.github className="h-4 w-4" />
+            {githubConfig.title}
+          </h3>
+
+          {!isLoading && !hasError && totalContributions > 0 && (
+            <div className="text-sm text-muted-foreground flex items-center gap-1">
+              Total:{' '}
+              <span className="font-bold text-foreground">
+                {totalContributions.toLocaleString()}
+              </span>{' '}
+              contributions
+            </div>
+          )}
         </div>
 
-        {/* Graph area — ref used for width measurement, no overflow */}
-        <div ref={containerRef} className="w-full">
+        {/*
+          graphRef is placed HERE — this is the exact container the ActivityCalendar
+          SVG will be rendered into, so blockSize is always computed from the
+          true available width with no guesswork about outer padding.
+          overflow-hidden clips any sub-pixel bleed.
+        */}
+        <div ref={graphRef} className="w-full overflow-hidden">
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-10 text-muted-foreground">
-              <Loader2 className="mb-3 h-6 w-6 animate-spin" />
-              <p className="text-sm">{githubConfig.loadingState.description}</p>
+            <div className="flex flex-col items-center justify-center py-12 gap-3">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              <p className="text-sm text-muted-foreground">
+                {githubConfig.loadingState.description}
+              </p>
             </div>
           ) : hasError || contributions.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
-              <Icons.github className="h-8 w-8 text-muted-foreground" />
-              <div>
-                <p className="font-medium">{githubConfig.errorState.title}</p>
-                <p className="text-sm text-muted-foreground">
-                  {githubConfig.errorState.description}
-                </p>
-              </div>
+            <div className="flex flex-col items-center justify-center py-12 gap-3 text-center">
+              <p className="font-medium">{githubConfig.errorState.title}</p>
+              <p className="text-sm text-muted-foreground">
+                {githubConfig.errorState.description}
+              </p>
               <Button variant="outline" size="sm" asChild>
                 <Link
                   href={`https://github.com/${username}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
+                  <Icons.github className="mr-2 h-4 w-4" />
                   {githubConfig.errorState.buttonText}
                 </Link>
               </Button>
@@ -230,8 +228,6 @@ export const GitHubContributionGraph = ({
           ) : (
             <ActivityCalendar
               data={contributions}
-              theme={githubConfig.theme}
-              colorScheme={theme === 'dark' ? 'dark' : 'light'}
               blockSize={blockSize}
               blockMargin={githubConfig.blockMargin}
               fontSize={githubConfig.fontSize}
@@ -241,7 +237,9 @@ export const GitHubContributionGraph = ({
                 weekdays: githubConfig.weekdays,
                 totalCount: githubConfig.totalCountLabel,
               }}
-              style={{ width: '100%' }}
+              theme={githubConfig.theme}
+              colorScheme={theme === 'light' ? 'light' : 'dark'}
+              showWeekdayLabels
             />
           )}
         </div>
