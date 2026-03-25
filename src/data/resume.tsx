@@ -8,7 +8,7 @@ export const DATA = {
   location: "Pune, India",
   locationLink: "https://www.google.com/maps/place/Pune",
   description:
-    "Full-Stack Developer | Spring Boot • React • Microservices | 750+ DSA Problems & Strong CS Fundamentals.",
+    "Full-Stack Developer | Spring Boot • React • Microservices | 800+ DSA Problems & Strong CS Fundamentals.",
 
   summary:
     "I am Prathamesh Jadhav, an Information Technology undergraduate at PICT, Pune, and a passionate full-stack developer. I specialize in Spring Boot, React, RAG, and Machine Learning. I enjoy building high-performance, scalable systems and solving real-world engineering problems. I previously worked as a Software Developer Intern at 8th Wonder Technologies, where I built production-grade React interfaces, reusable UI components, and CMS-driven dashboards. I actively practice DSA, have solved 650+ problems, and love exploring system design, microservices, and AI-driven applications.",
@@ -84,7 +84,7 @@ export const DATA = {
       },
       Resume: {
         name: "Resume",
-        url: "https://drive.google.com/file/d/1xpG6Fs6YSBCuiHBV8kIhEkbTFzMBPBws/view?usp=sharing",
+        url: "https://drive.google.com/file/d/1z5uV4dPBWyM3U9EtoD7hF4Tp68hzZeaG/view?usp=sharing",
         icon: Icons.resume,
         navbar: true,
       },
@@ -98,6 +98,18 @@ export const DATA = {
   },
 
   work: [
+    {
+      company: "PICT, Pune",
+      href: "https://pict.edu",
+      badges: [],
+      location: "Pune",
+      title: "Research Intern",
+      logoUrl: "/PICT.png",
+      start: "Feb 2026",
+      end: "Apr 2026",
+      description:
+        "Developed a system for file type identification using raw binary data (PDF, TXT, image formats). Implemented file classification using binary signatures (magic numbers). Applied clustering techniques to group similar files and determine file sequencing/order based on patterns. Gained hands-on experience in data analysis, pattern recognition, and low-level file structures.",
+    },
     {
       company: "8th Wonder Technologies",
       href: "https://8thwonder.xyz",
@@ -116,7 +128,7 @@ export const DATA = {
     {
       school: "Pune Institute of Computer Technology (PICT)",
       href: "https://pict.edu",
-      degree: "B.E. in Information Technology- CGPA : 9.42",
+      degree: "B.E. in Information Technology- CGPA : 9.50",
       logoUrl: "/PICT.png",
       start: "2023",
       end: "2027",
@@ -192,7 +204,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://code-alarm-contest.vercel.app/",
+          href: "https://codealarm.tech/",
           icon: <Icons.globe className="size-3" />,
         },
         {

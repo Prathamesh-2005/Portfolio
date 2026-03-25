@@ -16,6 +16,7 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Highlighter } from "@/components/ui/highlighter";
 
 const SkillsCube3D = dynamic(() => import("@/components/skills-cube-3d").then(mod => ({ default: mod.SkillsCube3D })), {
   ssr: false,
@@ -111,9 +112,9 @@ export default function Page() {
             <TechBadge name="AWS" icon="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />{" "}
             and{" "}
             <TechBadge name="PostgreSQL" icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />{" "}
-            . With a focus on <span className="font-semibold text-foreground">microservices</span> and{" "}
-            <span className="font-semibold text-foreground">scalable systems</span>. Solved{" "}
-            <span className="font-semibold text-foreground">750+ DSA</span> problems, driven by strong CS fundamentals.
+            . With a focus on <Highlighter action="underline" color="#FF9800" className="font-semibold text-foreground">microservices</Highlighter> and{" "}
+            <Highlighter action="underline" color="#FF9800" className="font-semibold text-foreground">scalable systems</Highlighter>. Solved{" "}
+            <Highlighter action="underline" color="#FF9800" className="font-semibold text-foreground">800+ DSA</Highlighter> problems, driven by strong CS fundamentals.
           </p>
         </BlurFade>
       </section>
