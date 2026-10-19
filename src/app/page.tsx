@@ -9,7 +9,6 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { GitHubContributionGraph } from "@/components/github-contribution-graph";
 import { LocationWithTime } from "@/components/location-with-time";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
@@ -119,12 +118,6 @@ export default function Page() {
         </BlurFade>
       </section>
 
-      <section id="github-contributions" className="mx-auto w-full max-w-[850px]">
-        <GitHubContributionGraph
-          username="Prathamesh-2005"
-          delay={BLUR_FADE_DELAY * 4.5}
-        />
-      </section>
       <section id="work" className="section-hover pl-4">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>

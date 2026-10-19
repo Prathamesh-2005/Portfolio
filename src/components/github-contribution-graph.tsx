@@ -28,7 +28,7 @@ type GitHubContributionResponse = {
 
 const githubConfig = {
   username: 'Prathamesh-2005',
-  apiUrl: 'https://github-contributions-api.deno.dev',
+  apiUrl: 'https://api.github.com/users/${username}',
   title: 'GitHub Activity',
   blockMargin: 3,
   fontSize: 12,
@@ -121,8 +121,25 @@ export const GitHubContributionGraph = ({
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await fetch(`${githubConfig.apiUrl}/${username}.json`);
-        const data: { contributions?: unknown[] } = await response.json();
+        const response = await fetch(`/api/github-contributions?username=${encodeURIComponent(
+          username,
+        )}`);
+
+        if (!response.ok) {
+          const text = await response.text().catch(() => '[no body]');
+          console.error('Proxy returned error:', response.status, text);
+          setHasError(true);
+          return;
+        }
+
+        let data: { contributions?: unknown[] } | null = null;
+        try {
+          data = await response.json();
+        } catch (err) {
+          console.error('Invalid JSON from proxy:', err);
+          setHasError(true);
+          return;
+        }
 
         if (data?.contributions && Array.isArray(data.contributions)) {
           const flattenedContributions = data.contributions.flat();

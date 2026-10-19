@@ -72,7 +72,7 @@ export const DATA = {
       },
       LeetCode: {
         name: "LeetCode",
-        url: "https://leetcode.com/u/prathameshjadh/",
+        url: "https://leetcode.com/u/Heisenberg_2005/",
         icon: Icons.leetcode,
         navbar: true,
       },
@@ -84,7 +84,7 @@ export const DATA = {
       },
       Resume: {
         name: "Resume",
-        url: "https://drive.google.com/file/d/1Bca0ppuHeZcHUtmwTDeRNrWPo_SPG-YQ/view?usp=sharing",
+        url: "https://drive.google.com/file/d/1ORTSTHTx3n7Fy9VixGRphWM5fxer1i8Y/view?usp=sharing",
         icon: Icons.resume,
         navbar: true,
       },
@@ -128,7 +128,7 @@ export const DATA = {
     {
       school: "Pune Institute of Computer Technology (PICT)",
       href: "https://pict.edu",
-      degree: "B.E. in Information Technology- CGPA : 9.50",
+      degree: "B.E. in Information Technology- CGPA : 9.54",
       logoUrl: "/PICT.png",
       start: "2023",
       end: "2027",
